@@ -6,11 +6,13 @@
 
 <h1>{data.date_display}</h1>
 
-{#if data.mood}
-	<strong>You have submitted your mood for today</strong>
-{:else}
-	<strong>Submit your Mood for today</strong>
-{/if}
+<p>
+	{#if data.mood}
+		<strong>You have submitted your mood</strong>
+	{:else}
+		<strong>Submit your Mood</strong>
+	{/if}
+</p>
 
 <form method="POST" use:enhance>
 	<input type="hidden" name="date" value={data.date} />

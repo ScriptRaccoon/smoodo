@@ -9,7 +9,7 @@
 		</li>
 		{#if page.data.user}
 			<li>
-				<a href="/app">App</a>
+				<a href="/app/today">Today</a>
 			</li>
 			<li>
 				<a href="/app/calendar">Calendar</a>

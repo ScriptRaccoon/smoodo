@@ -46,6 +46,6 @@ export const actions: Actions = {
 
 		await query('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?', [id])
 
-		redirect(302, '/app')
+		redirect(302, '/app/today')
 	}
 }
