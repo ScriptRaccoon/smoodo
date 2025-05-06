@@ -4,9 +4,7 @@
 	let { form, data } = $props()
 </script>
 
-<h1>App</h1>
-
-<h2>{data.date_display}</h2>
+<h1>{data.date_display}</h1>
 
 {#if data.mood}
 	<strong>You have submitted your mood for today</strong>
@@ -29,8 +27,8 @@
 
 	<div>
 		<label for="comment">Comment (optional)</label>
-		<textarea name="comment" id="comment" rows="4"
-			>{data.mood?.comment ?? ''}
+		<textarea name="comment" id="comment" rows="4">
+			{data.mood?.comment ?? ''}
 		</textarea>
 	</div>
 

@@ -1,4 +1,4 @@
-import { comment_max_length } from '$lib/server/config'
+import { comment_max_length, date_regex } from '$lib/server/config'
 import { query } from '$lib/server/db'
 import { format } from 'date-fns'
 import type { Actions, PageServerLoad } from './$types'
@@ -6,9 +6,13 @@ import { error } from '@sveltejs/kit'
 import type { Mood } from '$lib/server/types'
 
 export const load: PageServerLoad = async (event) => {
-	const now = new Date()
-	const date = format(now, 'yyyy-MM-dd')
-	const date_display = format(now, 'EEEE dd MMMM yyyy')
+	const date = event.params.date
+
+	if (!date_regex.test(date)) {
+		return error(400, 'Invalid date format.')
+	}
+
+	const date_display = format(new Date(date), 'EEEE dd MMMM yyyy')
 
 	const res = await event.fetch(`/api/mood/${date}`)
 	if (!res.ok) error(500, 'API error.')
