@@ -1,9 +1,20 @@
+import { comment_max_length } from '$lib/server/config'
 import { query } from '$lib/server/db'
-import type { Actions } from './$types'
-
+import { format } from 'date-fns'
+import type { Actions, PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
 
-const comment_max_length = 1000
+export const load: PageServerLoad = async (event) => {
+	const now = new Date()
+	const date = format(now, 'yyyy-MM-dd')
+	const date_display = format(now, 'EEEE dd MMMM yyyy')
+
+	const res = await event.fetch(`/api/mood/${date}`)
+	if (!res.ok) error(500, 'API error.')
+	const { mood } = await res.json()
+
+	return { mood, date, date_display }
+}
 
 export const actions: Actions = {
 	default: async (event) => {

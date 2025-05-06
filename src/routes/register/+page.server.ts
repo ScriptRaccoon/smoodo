@@ -1,10 +1,7 @@
 import bcrypt from 'bcryptjs'
 import type { Actions } from './$types'
 import { query } from '$lib/server/db'
-
-const username_regex = /^[a-zA-Z0-9_]+$/
-const password_min_length = 8
-const password_regex = /^(?=.*[A-Za-z])(?=.*\d).+$/
+import { password_min_length, password_regex, username_regex } from '$lib/server/config'
 
 export const actions: Actions = {
 	default: async (event) => {

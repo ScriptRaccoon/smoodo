@@ -14,7 +14,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	const is_protected = event.url.pathname.startsWith('/app')
+	const is_protected =
+		event.url.pathname.startsWith('/app') || event.url.pathname.startsWith('/api')
 	if (is_protected && !event.locals.user) {
 		redirect(302, '/login')
 	}
