@@ -20,14 +20,18 @@
 		<label for="mood">Mood (1 to 5)</label>
 		<select name="mood" id="mood" required>
 			{#each { length: 5 } as _, i}
-				<option value={i + 1} selected={data.mood.mood === i + 1}>{i + 1}</option>
+				<option value={i + 1} selected={data.mood?.value === i + 1}>
+					{i + 1}
+				</option>
 			{/each}
 		</select>
 	</div>
 
 	<div>
 		<label for="comment">Comment (optional)</label>
-		<textarea name="comment" id="comment" rows="4">{data.mood.comment}</textarea>
+		<textarea name="comment" id="comment" rows="4"
+			>{data.mood?.comment ?? ''}
+		</textarea>
 	</div>
 
 	<button type="submit">

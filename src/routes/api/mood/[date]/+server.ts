@@ -10,7 +10,7 @@ export const GET: RequestHandler = async (event) => {
 
 	const mood_query = `
     SELECT
-        id, mood, comment
+        id, value, comment
     FROM
 		moods
     WHERE

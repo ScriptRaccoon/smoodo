@@ -3,6 +3,7 @@ import { query } from '$lib/server/db'
 import { format } from 'date-fns'
 import type { Actions, PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
+import type { Mood } from '$lib/server/types'
 
 export const load: PageServerLoad = async (event) => {
 	const now = new Date()
@@ -13,7 +14,7 @@ export const load: PageServerLoad = async (event) => {
 	if (!res.ok) error(500, 'API error.')
 	const { mood } = await res.json()
 
-	return { mood, date, date_display }
+	return { mood: mood as Mood | null, date, date_display }
 }
 
 export const actions: Actions = {
@@ -23,7 +24,7 @@ export const actions: Actions = {
 
 		const form_data = await event.request.formData()
 
-		const mood = form_data.get('mood') as string
+		const mood_value = form_data.get('mood') as string
 		const date = form_data.get('date') as string
 		const comment = form_data.get('comment') as string
 
@@ -35,14 +36,13 @@ export const actions: Actions = {
 		}
 
 		const mood_query = `
-        INSERT INTO moods (user_id, mood, date, comment)
+        INSERT INTO moods (user_id, value, date, comment)
         VALUES (?, ?, ?, ?)
         ON CONFLICT (user_id, date) DO UPDATE SET
-        mood = excluded.mood,
-        comment = excluded.comment
-        `
+        value = excluded.value,
+        comment = excluded.comment`
 
-		const args = [user.id, parseInt(mood), date, comment || null]
+		const args = [user.id, parseInt(mood_value), date, comment || null]
 		const { err } = await query(mood_query, args)
 
 		if (err) {

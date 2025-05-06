@@ -4,6 +4,6 @@ export type UserLocals = {
 
 export type Mood = {
 	id: number
-	mood: number
+	value: number
 	comment: string | null
 }
