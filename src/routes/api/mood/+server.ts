@@ -14,7 +14,7 @@ export const GET: RequestHandler = async (event) => {
         moods
     WHERE
         user_id = ?
-    ORDER BY date DESC
+    ORDER BY date ASC
     `
 
 	const args = [user.id]

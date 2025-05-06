@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import type { MoodBox } from '$lib/server/types'
-import { group_by } from '$lib/server/utils'
+import { get_month_info, group_by } from '$lib/server/utils'
 
 export const load: PageServerLoad = async (event) => {
 	const user = event.locals.user
@@ -11,9 +11,15 @@ export const load: PageServerLoad = async (event) => {
 	if (!res.ok) error(500, 'API error.')
 
 	const data = await res.json()
-	const moods = data.moods as MoodBox[]
+	const mood_list = data.moods as MoodBox[]
 
-	const moods_dictionary = group_by(moods, 'date')
+	const moods = group_by(mood_list, 'date')
 
-	return { moods_dictionary }
+	const month_strings = Array.from(
+		new Set(mood_list.map((mood) => mood.date.substring(0, 7)))
+	).toSorted()
+
+	const months = month_strings.map(get_month_info)
+
+	return { moods, months }
 }
