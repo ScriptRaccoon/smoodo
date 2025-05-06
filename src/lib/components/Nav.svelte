@@ -12,6 +12,9 @@
 				<a href="/app">App</a>
 			</li>
 			<li>
+				<a href="/app/calendar">Calendar</a>
+			</li>
+			<li>
 				<a href="/app/logout" data-sveltekit-preload-data="off">Logout</a>
 			</li>
 		{:else}

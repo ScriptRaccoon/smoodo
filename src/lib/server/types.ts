@@ -7,3 +7,9 @@ export type Mood = {
 	value: number
 	comment: string | null
 }
+
+export type MoodBox = {
+	id: number
+	value: number
+	date: string
+}
