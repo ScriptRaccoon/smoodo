@@ -24,6 +24,7 @@ vite.config.ts.timestamp-*
 
 # Database
 database/*.db
+database/sample.sql
 
 # Personal Todos
 todos.txt
