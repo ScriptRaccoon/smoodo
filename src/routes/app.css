@@ -1,10 +1,70 @@
+/* COLORS */
+
 :root {
 	--mood-1-color: hsl(246, 91%, 8%);
 	--mood-2-color: hsl(248, 59%, 22%);
 	--mood-3-color: hsl(176, 52%, 29%);
 	--mood-4-color: rgb(46, 158, 74);
 	--mood-5-color: rgb(141, 232, 50);
+	--bg-gradient: linear-gradient(hsl(197, 71%, 85%), hsl(197, 71%, 95%));
+	--outline-color: #555;
+	--secondary-bg-color: #fff;
+	--font-color: #333;
+	--btn-color: hsl(330, 100%, 71%);
+	--inverted-font-color: #fff;
+	--error-color: red;
+	--secondary-font-color: #666;
 }
+
+/* GLOBAL STYLES */
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family:
+		'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial,
+		sans-serif;
+	line-height: 1.5;
+	background-image: var(--bg-gradient);
+	background-attachment: fixed;
+	background-size: 100% 100vh;
+	color: var(--font-color);
+	min-height: 100vh;
+}
+
+/* HEADINGS */
+
+h1,
+h2,
+h3 {
+	line-height: 1.2;
+}
+
+.header {
+	margin-bottom: 1rem;
+}
+
+/* VARIOUS STANDARD TAGS */
+
+a {
+	color: inherit;
+	text-underline-offset: 2px;
+	text-decoration-color: var(--outline-color);
+}
+
+p {
+	margin-block: 1rem;
+}
+
+textarea {
+	resize: vertical;
+}
+
+/* MOOD COLORS */
 
 .mood[data-value='1'] {
 	--color: var(--mood-1-color);
@@ -26,6 +86,52 @@
 	--color: var(--mood-5-color);
 }
 
+/* FORM ELEMENTS */
+
+input,
+button,
+textarea {
+	color: inherit;
+	font: inherit;
+	border: none;
+	background: none;
+	outline: none;
+}
+
+:is(input, button, textarea, a):focus-visible,
+input[type='radio']:checked {
+	outline: 2px solid var(--outline-color);
+	outline-offset: 2px;
+}
+
+.input-group {
+	margin-bottom: 1rem;
+
+	label {
+		display: block;
+	}
+
+	input,
+	textarea {
+		background-color: var(--secondary-bg-color);
+		padding: 0.25rem 0.4rem;
+		border-radius: 0.25rem;
+		width: 100%;
+	}
+}
+
+/* BUTTONS */
+
+.button {
+	background-color: var(--btn-color);
+	color: var(--inverted-font-color);
+	padding: 0.25rem 0.8rem;
+	border-radius: 0.25rem;
+	cursor: pointer;
+}
+
+/* UTILITIES */
+
 .sr-only {
 	position: absolute;
 	width: 1px;
@@ -35,4 +141,16 @@
 	overflow: hidden;
 	clip: rect(0, 0, 0, 0);
 	border: 0;
+}
+
+.secondary {
+	color: var(--secondary-font-color);
+}
+
+.no-bullets {
+	list-style: none;
+}
+
+.error {
+	color: var(--error-color);
 }

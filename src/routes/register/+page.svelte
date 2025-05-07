@@ -4,24 +4,26 @@
 	let { form } = $props()
 </script>
 
-<h1>Register</h1>
+<header class="header">
+	<h1>Register</h1>
+</header>
 
 <form method="POST" use:enhance>
-	<div>
+	<div class="input-group">
 		<label for="username">Username</label>
 		<input type="text" id="username" name="username" required />
 	</div>
 
-	<div>
+	<div class="input-group">
 		<label for="password">Password</label>
 		<input type="password" id="password" name="password" required />
 	</div>
 
-	<button type="submit">Register</button>
+	<button class="button" type="submit">Register</button>
 </form>
 
 {#if form?.error}
-	<p>{form.error}</p>
+	<p class="error">{form.error}</p>
 {/if}
 
 {#if form?.success}

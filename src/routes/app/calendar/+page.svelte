@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation'
+	import Legend from '$lib/components/Legend.svelte'
 
 	let { data } = $props()
 
@@ -8,39 +9,61 @@
 	})
 </script>
 
-<h1>Calendar</h1>
+<header class="header">
+	<h1>Calendar</h1>
+</header>
 
-{#each data.months as month}
-	<h2>{month.label}</h2>
-	<div class="grid" style:--first_day={month.first_day}>
-		{#each { length: month.day_count } as _, i}
-			{@const date = `${month.year}-${month.number.toString().padStart(2, '0')}-${(i + 1).toString().padStart(2, '0')}`}
-			<a
-				class="date mood"
-				class:first={i === 0}
-				href={`/app/${date}`}
-				data-value={data.moods[date]?.value ?? 0}
-			>
-				<span class="sr-only">{date}</span>
-			</a>
-		{/each}
-	</div>
-{/each}
+{#if data.months.length}
+	{#each data.months as month}
+		<section>
+			<h2>{month.label}</h2>
+			<div class="grid" style:--first_day={month.first_day}>
+				{#each { length: month.day_count } as _, i}
+					{@const date = `${month.year}-${month.number.toString().padStart(2, '0')}-${(i + 1).toString().padStart(2, '0')}`}
+					<a
+						class="date mood"
+						class:first={i === 0}
+						href={`/app/${date}`}
+						data-value={data.moods[date]?.value ?? 0}
+					>
+						<span class="sr-only">{date}</span>
+					</a>
+				{/each}
+			</div>
+		</section>
+	{/each}
+
+	<Legend />
+{:else}
+	<p>No entries yet</p>
+{/if}
 
 <style>
+	h1 {
+		text-align: center;
+	}
+
+	h2 {
+		margin-bottom: 0.5rem;
+		font-size: 1.25rem;
+	}
+
+	section {
+		margin-bottom: 2rem;
+	}
+
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
-		gap: 0.4rem;
+		gap: 0.25rem;
 	}
 
 	.date {
-		padding: 1rem;
-		border-radius: 0.5rem;
+		aspect-ratio: 5 / 3;
+		border-radius: 0.25rem;
 		text-align: center;
 		text-decoration: none;
-		color: inherit;
-		background-color: var(--color, #eee);
+		background-color: var(--color, var(--secondary-bg-color));
 	}
 
 	.date.first {

@@ -29,10 +29,16 @@
 </nav>
 
 <style>
+	nav {
+		padding-block: 1rem;
+		padding-inline: 0.75rem;
+	}
+
 	ul {
 		padding: 0;
 		list-style-type: none;
-		gap: 1rem;
+		gap: 0.5rem 1rem;
 		display: flex;
+		justify-content: center;
 	}
 </style>
