@@ -2,7 +2,7 @@ import { comment_max_length, date_regex } from '$lib/server/config'
 import { query } from '$lib/server/db'
 import { format } from 'date-fns'
 import type { Actions, PageServerLoad } from './$types'
-import { error } from '@sveltejs/kit'
+import { error, fail } from '@sveltejs/kit'
 import type { Mood } from '$lib/server/types'
 
 export const load: PageServerLoad = async (event) => {
@@ -35,12 +35,12 @@ export const actions: Actions = {
 		const comment = form_data.get('comment') as string
 
 		if (comment.length > comment_max_length) {
-			return {
+			return fail(400, {
 				success: false,
 				error: `Comment must be at most ${comment_max_length} characters long.`,
 				mood_value,
 				comment
-			}
+			})
 		}
 
 		const mood_query = `
@@ -54,7 +54,12 @@ export const actions: Actions = {
 		const { err } = await query(mood_query, args)
 
 		if (err) {
-			return { success: false, error: 'Database error.', mood_value, comment }
+			return fail(500, {
+				success: false,
+				error: 'Database error.',
+				mood_value,
+				comment
+			})
 		}
 
 		return { success: true, message: 'Mood has been saved' }
@@ -72,7 +77,7 @@ export const actions: Actions = {
 		const { err } = await query(mood_query, args)
 
 		if (err) {
-			return { success: false, error: 'Database error.' }
+			return fail(500, { success: false, error: 'Database error.' })
 		}
 
 		return { success: true, message: 'Mood has been deleted' }

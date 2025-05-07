@@ -1,10 +1,9 @@
 import { query } from '$lib/server/db'
 import bcrypt from 'bcryptjs'
 import type { Actions } from './$types'
-
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '$env/static/private'
-import { redirect } from '@sveltejs/kit'
+import { fail, redirect } from '@sveltejs/kit'
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -20,11 +19,15 @@ export const actions: Actions = {
 		)
 
 		if (err) {
-			return { success: false, error: 'Database error.', username }
+			return fail(500, { success: false, error: 'Database error.', username })
 		}
 
 		if (!rows.length) {
-			return { success: false, error: 'Invalid username or password.', username }
+			return fail(400, {
+				success: false,
+				error: 'Invalid username or password.',
+				username
+			})
 		}
 
 		const { id, password_hash } = rows[0]
@@ -32,7 +35,11 @@ export const actions: Actions = {
 		const password_match = await bcrypt.compare(password, password_hash)
 
 		if (!password_match) {
-			return { success: false, error: 'Invalid username or password.', username }
+			return fail(400, {
+				success: false,
+				error: 'Invalid username or password.',
+				username
+			})
 		}
 
 		const token = jwt.sign({ id }, JWT_SECRET)

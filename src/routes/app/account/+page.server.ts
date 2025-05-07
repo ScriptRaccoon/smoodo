@@ -70,7 +70,7 @@ export const actions: Actions = {
 					})
 		}
 
-		return { success: true }
+		return { action: 'rename', success: true }
 	},
 
 	password: async (event) => {

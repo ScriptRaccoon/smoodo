@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import type { Actions } from './$types'
 import { query } from '$lib/server/db'
 import { password_min_length, password_regex, username_regex } from '$lib/server/config'
+import { fail } from '@sveltejs/kit'
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -11,39 +12,43 @@ export const actions: Actions = {
 		const password_repeat = form_data.get('repeat_password') as string
 
 		if (!username) {
-			return { success: false, error: 'Username is required.', username }
+			return fail(400, { success: false, error: 'Username is required.', username })
 		}
 
 		if (!username_regex.test(username)) {
-			return {
+			return fail(400, {
 				success: false,
 				error: 'Username can only contain letters, numbers, and underscores.',
 				username
-			}
+			})
 		}
 
 		if (!password) {
-			return { success: false, error: 'Password is required.', username }
+			return fail(400, { success: false, error: 'Password is required.', username })
 		}
 
 		if (password.length < password_min_length) {
-			return {
+			return fail(400, {
 				success: false,
 				error: `Password must be at least ${password_min_length} characters long.`,
 				username
-			}
+			})
 		}
 
 		if (!password_regex.test(password)) {
-			return {
+			return fail(400, {
 				success: false,
 				error: 'Password must contain at least one letter and one number.',
 				username
-			}
+			})
 		}
 
 		if (password !== password_repeat) {
-			return { success: false, error: 'Passwords do not match.', username }
+			return fail(400, {
+				success: false,
+				error: 'Passwords do not match.',
+				username
+			})
 		}
 
 		const password_hash = await bcrypt.hash(password, 10)
@@ -55,8 +60,12 @@ export const actions: Actions = {
 		if (err) {
 			const username_taken = err.code === 'SQLITE_CONSTRAINT_UNIQUE'
 			return username_taken
-				? { success: false, error: 'Username already exists.', username }
-				: { success: false, error: 'Database error.', username }
+				? fail(400, {
+						success: false,
+						error: 'Username already exists.',
+						username
+					})
+				: fail(500, { success: false, error: 'Database error.', username })
 		}
 
 		return { success: true, username }
