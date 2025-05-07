@@ -30,13 +30,16 @@ export const actions: Actions = {
 		const date = event.params.date
 		const form_data = await event.request.formData()
 
-		const mood_value = form_data.get('mood') as string
+		const mood_value = parseInt(form_data.get('mood') as string)
+
 		const comment = form_data.get('comment') as string
 
 		if (comment.length > comment_max_length) {
 			return {
 				success: false,
-				error: `Comment must be at most ${comment_max_length} characters long.`
+				error: `Comment must be at most ${comment_max_length} characters long.`,
+				mood_value,
+				comment
 			}
 		}
 
@@ -47,11 +50,11 @@ export const actions: Actions = {
         value = excluded.value,
         comment = excluded.comment`
 
-		const args = [user.id, parseInt(mood_value), date, comment || null]
+		const args = [user.id, mood_value, date, comment || null]
 		const { err } = await query(mood_query, args)
 
 		if (err) {
-			return { success: false, error: 'Database error.' }
+			return { success: false, error: 'Database error.', mood_value, comment }
 		}
 
 		return { success: true, message: 'Mood has been saved' }

@@ -11,7 +11,13 @@
 <form method="POST" use:enhance>
 	<div class="input-group">
 		<label for="username">Username</label>
-		<input type="text" id="username" name="username" required />
+		<input
+			type="text"
+			id="username"
+			name="username"
+			required
+			value={form?.username ?? ''}
+		/>
 	</div>
 
 	<div class="input-group">

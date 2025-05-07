@@ -10,31 +10,34 @@ export const actions: Actions = {
 		const password = form_data.get('password') as string
 
 		if (!username) {
-			return { success: false, error: 'Username is required.' }
+			return { success: false, error: 'Username is required.', username }
 		}
 
 		if (!password) {
-			return { success: false, error: 'Password is required.' }
+			return { success: false, error: 'Password is required.', username }
 		}
 
 		if (!username_regex.test(username)) {
 			return {
 				success: false,
-				error: 'Username can only contain letters, numbers, and underscores.'
+				error: 'Username can only contain letters, numbers, and underscores.',
+				username
 			}
 		}
 
 		if (password.length < password_min_length) {
 			return {
 				success: false,
-				error: `Password must be at least ${password_min_length} characters long.`
+				error: `Password must be at least ${password_min_length} characters long.`,
+				username
 			}
 		}
 
 		if (!password_regex.test(password)) {
 			return {
 				success: false,
-				error: 'Password must contain at least one letter and one number.'
+				error: 'Password must contain at least one letter and one number.',
+				username
 			}
 		}
 
@@ -47,10 +50,10 @@ export const actions: Actions = {
 		if (err) {
 			const username_taken = err.code === 'SQLITE_CONSTRAINT_UNIQUE'
 			return username_taken
-				? { success: false, error: 'Username already exists.' }
-				: { success: false, error: 'Database error.' }
+				? { success: false, error: 'Username already exists.', username }
+				: { success: false, error: 'Database error.', username }
 		}
 
-		return { success: true }
+		return { success: true, username }
 	}
 }

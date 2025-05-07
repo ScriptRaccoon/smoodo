@@ -21,7 +21,7 @@
 				type="radio"
 				name="mood"
 				value={i + 1}
-				checked={data.mood?.value === i + 1}
+				checked={data.mood?.value === i + 1 || form?.mood_value === i + 1}
 				data-value={i + 1}
 				required
 				aria-label="mood {i + 1} out of 5"
@@ -32,7 +32,7 @@
 	<div class="input-group">
 		<label for="comment">Comment (optional)</label>
 		<textarea name="comment" id="comment" rows="4"
-			>{data.mood?.comment ?? ''}</textarea
+			>{data.mood?.comment ?? form?.comment ?? ''}</textarea
 		>
 	</div>
 

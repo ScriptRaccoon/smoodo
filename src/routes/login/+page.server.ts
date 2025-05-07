@@ -20,11 +20,11 @@ export const actions: Actions = {
 		)
 
 		if (err) {
-			return { success: false, error: 'Database error.' }
+			return { success: false, error: 'Database error.', username }
 		}
 
 		if (!rows.length) {
-			return { success: false, error: 'Invalid username or password.' }
+			return { success: false, error: 'Invalid username or password.', username }
 		}
 
 		const { id, password_hash } = rows[0]
@@ -32,7 +32,7 @@ export const actions: Actions = {
 		const password_match = await bcrypt.compare(password, password_hash)
 
 		if (!password_match) {
-			return { success: false, error: 'Invalid username or password.' }
+			return { success: false, error: 'Invalid username or password.', username }
 		}
 
 		const token = jwt.sign({ id }, JWT_SECRET)
