@@ -6,6 +6,9 @@ import type { Mood } from '$lib/server/types'
 import { add_days } from '$lib/utils'
 
 export const load: PageServerLoad = async (event) => {
+	const user = event.locals.user
+	if (!user) error(401, 'Unauthorized')
+
 	const date = event.params.date
 
 	if (!date_regex.test(date)) {
@@ -19,10 +22,23 @@ export const load: PageServerLoad = async (event) => {
 		year: 'numeric'
 	}).format(new Date(date))
 
-	const res = await event.fetch(`/api/mood/${date}`)
-	if (!res.ok) error(500, 'API error.')
+	const mood_query = `
+    SELECT
+        id, value, date, comment
+    FROM
+		moods
+    WHERE
+		user_id = ? AND date = ?
+    `
+	const args = [user.id, date]
 
-	const { mood } = (await res.json()) as { mood: Mood | null }
+	const { rows: moods, err } = await query<Mood>(mood_query, args)
+
+	if (err) {
+		return error(500, 'Database error.')
+	}
+
+	const mood = moods.length ? moods[0] : null
 
 	const next_date = add_days(date, 1)
 	const prev_date = add_days(date, -1)

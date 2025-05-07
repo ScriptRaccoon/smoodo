@@ -2,16 +2,28 @@ import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 import { get_month_info, group_by } from '$lib/utils'
 import type { Mood } from '$lib/server/types'
+import { query } from '$lib/server/db'
 
 export const load: PageServerLoad = async (event) => {
 	const user = event.locals.user
 	if (!user) error(401, 'Unauthorized')
 
-	const res = await event.fetch('/api/mood')
-	if (!res.ok) error(500, 'API error.')
+	const moods_query = `
+	SELECT
+		id, value, date, comment
+	FROM
+		moods
+	WHERE
+		user_id = ?
+	ORDER BY date ASC
+	`
+	const args = [user.id]
 
-	const data = await res.json()
-	const moods = data.moods as Mood[]
+	const { rows: moods, err } = await query<Mood>(moods_query, args)
+
+	if (err) {
+		return error(500, 'Database error.')
+	}
 
 	const moods_dictionary = group_by(moods, 'date')
 
