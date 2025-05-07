@@ -15,7 +15,6 @@
 
 <form method="POST" use:enhance>
 	<div class="moods">
-		<input type="hidden" name="date" value={data.date} />
 		{#each { length: 5 } as _, i}
 			<input
 				class="mood"
@@ -37,21 +36,27 @@
 		>
 	</div>
 
-	<button class="button" type="submit">
+	<menu>
+		<button formaction="?/save" class="button" type="submit">
+			{#if data.mood}
+				Update
+			{:else}
+				Save
+			{/if}
+		</button>
+
 		{#if data.mood}
-			Update
-		{:else}
-			Submit
+			<button formaction="?/delete" class="button">Delete</button>
 		{/if}
-	</button>
+	</menu>
 </form>
 
 {#if form?.error}
 	<p class="error">{form.error}</p>
 {/if}
 
-{#if form?.success}
-	<p>Mood has been submitted</p>
+{#if form?.message}
+	<p>{form.message}</p>
 {/if}
 
 <Legend />
@@ -89,5 +94,11 @@
 	.moods:has(:checked) .mood:not(:checked) {
 		opacity: 0.25;
 		scale: 0.75;
+	}
+
+	menu {
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-between;
 	}
 </style>

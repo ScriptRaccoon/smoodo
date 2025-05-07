@@ -16,20 +16,21 @@ export const load: PageServerLoad = async (event) => {
 
 	const res = await event.fetch(`/api/mood/${date}`)
 	if (!res.ok) error(500, 'API error.')
+
 	const { mood } = await res.json()
 
 	return { mood: mood as Mood | null, date, date_display }
 }
 
 export const actions: Actions = {
-	default: async (event) => {
+	save: async (event) => {
 		const user = event.locals.user
 		if (!user) error(401, 'Unauthorized')
 
+		const date = event.params.date
 		const form_data = await event.request.formData()
 
 		const mood_value = form_data.get('mood') as string
-		const date = form_data.get('date') as string
 		const comment = form_data.get('comment') as string
 
 		if (comment.length > comment_max_length) {
@@ -53,6 +54,24 @@ export const actions: Actions = {
 			return { success: false, error: 'Database error.' }
 		}
 
-		return { success: true }
+		return { success: true, message: 'Mood has been saved' }
+	},
+
+	delete: async (event) => {
+		const user = event.locals.user
+		if (!user) error(401, 'Unauthorized')
+
+		const date = event.params.date
+
+		const mood_query = `DELETE FROM moods WHERE user_id = ? AND date = ?`
+
+		const args = [user.id, date]
+		const { err } = await query(mood_query, args)
+
+		if (err) {
+			return { success: false, error: 'Database error.' }
+		}
+
+		return { success: true, message: 'Mood has been deleted' }
 	}
 }
