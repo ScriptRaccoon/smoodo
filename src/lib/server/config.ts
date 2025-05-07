@@ -12,5 +12,8 @@ export const SECURITY_QUESTIONS = [
 	'What is the name of your favorite childhood friend?',
 	'What was the name of your first school?',
 	'What city did you visit on your first vacation?',
-	'What is the name of your favorite fictional character?'
+	'What is the name of your favorite fictional character?',
+	'What is the name of your favorite movie?',
+	'What is the title of your favorite song?',
+	'What is your favorite animal?'
 ]
