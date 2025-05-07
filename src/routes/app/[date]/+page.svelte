@@ -17,16 +17,16 @@
 <form method="POST" use:enhance>
 	<input type="hidden" name="date" value={data.date} />
 	{#each { length: 5 } as _, i}
-		<label>
-			<input
-				type="radio"
-				name="mood"
-				value={i + 1}
-				checked={data.mood?.value === i + 1}
-				required
-			/>
-			{i + 1} &nbsp;
-		</label>
+		<input
+			class="mood"
+			type="radio"
+			name="mood"
+			value={i + 1}
+			checked={data.mood?.value === i + 1}
+			data-value={i + 1}
+			required
+			aria-label="{i + 1} out of 5"
+		/>
 	{/each}
 
 	<div>
@@ -53,3 +53,21 @@
 {#if form?.success}
 	<p>Mood has been submitted</p>
 {/if}
+
+<style>
+	.mood {
+		appearance: none;
+		display: inline-block;
+		width: 2rem;
+		height: 2rem;
+		background-color: var(--color);
+		border-radius: 0.5rem;
+		cursor: pointer;
+		outline: none;
+	}
+
+	.mood:checked {
+		outline: 2px solid gray;
+		outline-offset: 2px;
+	}
+</style>

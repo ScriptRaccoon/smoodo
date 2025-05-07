@@ -9,12 +9,13 @@
 	<div class="grid" style:--first_day={month.first_day}>
 		{#each { length: month.day_count } as _, i}
 			{@const date = `${month.year}-${month.number.toString().padStart(2, '0')}-${(i + 1).toString().padStart(2, '0')}`}
-			<a class="box" class:first={i === 0} href={`/app/${date}`}>
-				{#if data.moods[date]}
-					{data.moods[date].value}
-				{:else}
-					&nbsp;
-				{/if}
+			<a
+				class="date mood"
+				class:first={i === 0}
+				href={`/app/${date}`}
+				data-value={data.moods[date]?.value ?? 0}
+			>
+				<span class="sr-only">{date}</span>
 			</a>
 		{/each}
 	</div>
@@ -27,16 +28,16 @@
 		gap: 0.4rem;
 	}
 
-	.box {
-		background-color: #eee;
+	.date {
 		padding: 1rem;
 		border-radius: 0.5rem;
 		text-align: center;
 		text-decoration: none;
 		color: inherit;
+		background-color: var(--color, #eee);
 	}
 
-	.box.first {
+	.date.first {
 		grid-column: calc(1 + var(--first_day));
 	}
 </style>

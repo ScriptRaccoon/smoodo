@@ -1,0 +1,38 @@
+:root {
+	--mood-1-color: hsl(246, 91%, 8%);
+	--mood-2-color: hsl(248, 59%, 22%);
+	--mood-3-color: hsl(176, 52%, 29%);
+	--mood-4-color: rgb(46, 158, 74);
+	--mood-5-color: rgb(141, 232, 50);
+}
+
+.mood[data-value='1'] {
+	--color: var(--mood-1-color);
+}
+
+.mood[data-value='2'] {
+	--color: var(--mood-2-color);
+}
+
+.mood[data-value='3'] {
+	--color: var(--mood-3-color);
+}
+
+.mood[data-value='4'] {
+	--color: var(--mood-4-color);
+}
+
+.mood[data-value='5'] {
+	--color: var(--mood-5-color);
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
