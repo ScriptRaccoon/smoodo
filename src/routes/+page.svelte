@@ -1,5 +1,5 @@
 <header class="header">
-	<h1>Smoody</h1>
+	<h1>Smoodo</h1>
 </header>
 
 <section>
@@ -22,7 +22,7 @@
 	<h2>Secure and Accessible</h2>
 	<p>
 		Enjoy secure user authentication and access your data across all your devices.
-		Smoody is mobile-friendly, so you can use it wherever you are.
+		Smoodo is mobile-friendly, so you can use it wherever you are.
 	</p>
 </section>
 
@@ -36,8 +36,8 @@
 <section>
 	<h2>Open Source</h2>
 	<p>
-		Smoody is open source and available on <a
-			href="http://github.com/ScriptRaccoon/smoody"
+		Smoodo is open source and available on <a
+			href="http://github.com/ScriptRaccoon/smoodo"
 			target="_blank"
 			rel="noopener noreferrer">GitHub</a
 		>. Contributions are welcome!
