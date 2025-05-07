@@ -19,3 +19,14 @@ export const MONTH_NAMES = [
 	'November',
 	'December'
 ]
+
+export const SECURITY_QUESTIONS = [
+	'What was the name of your first pet?',
+	'What was the name of your first teacher?',
+	'What is the title of your favorite book?',
+	'What is the name of the street you grew up on?',
+	'What is the name of your favorite childhood friend?',
+	'What was the name of your first school?',
+	'What city did you visit on your first vacation?',
+	'What is the name of your favorite fictional character?'
+]

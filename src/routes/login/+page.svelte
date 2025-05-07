@@ -28,6 +28,10 @@
 	<button class="button" type="submit">Login</button>
 </form>
 
+<p>
+	Forgot your password? <a href="/reset">Reset it</a>.
+</p>
+
 {#if form?.error}
 	<p class="error">{form.error}</p>
 {/if}

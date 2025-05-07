@@ -22,3 +22,15 @@ CREATE TABLE moods (
 CREATE INDEX IF NOT EXISTS idx_mood_user ON moods (user_id);
 
 CREATE INDEX IF NOT EXISTS idx_mood_date ON moods (date);
+
+CREATE TABLE IF NOT EXISTS security_answers (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    question_index INTEGER NOT NULL,
+    answer_hash TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (user_id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_security_answers_user ON security_answers (user_id);

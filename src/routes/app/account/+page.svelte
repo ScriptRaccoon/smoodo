@@ -54,6 +54,34 @@
 	<p>Password has been updated.</p>
 {/if}
 
+<form action="?/security_question" method="POST" use:enhance>
+	<div class="input-group">
+		<label for="question">Security Question (optional, for password reset)</label>
+		<select name="question" id="question">
+			{#each data.SECURITY_QUESTIONS as question, index}
+				<option value={index}>
+					{question}
+				</option>
+			{/each}
+		</select>
+	</div>
+
+	<div class="input-group">
+		<label for="answer">Answer</label>
+		<input type="text" id="answer" name="answer" />
+	</div>
+
+	<button class="button">Submit</button>
+</form>
+
+{#if form?.action === 'security_question' && form?.error}
+	<p class="error">{form.error}</p>
+{/if}
+
+{#if form?.action === 'security_question' && form?.success}
+	<p>Security question and answer have been saved.</p>
+{/if}
+
 <form class="form_delete" action="?/delete_account" method="POST" use:enhance>
 	{#if confirm_deletion}
 		<p>
