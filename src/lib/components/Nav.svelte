@@ -4,9 +4,6 @@
 
 <nav>
 	<ul>
-		<li>
-			<a href="/">Home</a>
-		</li>
 		{#if page.data.user}
 			<li>
 				<a href="/app/today">Today</a>
@@ -18,6 +15,9 @@
 				<a href="/app/account">Account</a>
 			</li>
 		{:else}
+			<li>
+				<a href="/">Home</a>
+			</li>
 			<li>
 				<a href="/login">Login</a>
 			</li>
