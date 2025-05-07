@@ -8,13 +8,10 @@ export const actions: Actions = {
 		const form_data = await event.request.formData()
 		const username = form_data.get('username') as string
 		const password = form_data.get('password') as string
+		const password_repeat = form_data.get('repeat_password') as string
 
 		if (!username) {
 			return { success: false, error: 'Username is required.', username }
-		}
-
-		if (!password) {
-			return { success: false, error: 'Password is required.', username }
 		}
 
 		if (!username_regex.test(username)) {
@@ -23,6 +20,10 @@ export const actions: Actions = {
 				error: 'Username can only contain letters, numbers, and underscores.',
 				username
 			}
+		}
+
+		if (!password) {
+			return { success: false, error: 'Password is required.', username }
 		}
 
 		if (password.length < password_min_length) {
@@ -39,6 +40,10 @@ export const actions: Actions = {
 				error: 'Password must contain at least one letter and one number.',
 				username
 			}
+		}
+
+		if (password !== password_repeat) {
+			return { success: false, error: 'Passwords do not match.', username }
 		}
 
 		const password_hash = await bcrypt.hash(password, 10)

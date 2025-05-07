@@ -25,6 +25,11 @@
 		<input type="password" id="password" name="password" required />
 	</div>
 
+	<div class="input-group">
+		<label for="repeat_password">Repeat Password</label>
+		<input type="password" id="repeat_password" name="repeat_password" required />
+	</div>
+
 	<button class="button" type="submit">Register</button>
 </form>
 
