@@ -8,6 +8,10 @@
 		Save a mood for every day and keep a record of how you feel over time. Optionally,
 		add a comment to reflect on your day in more detail.
 	</p>
+
+	<div class="img-container">
+		<img src="/choice.png" alt="Choose your mood from 1 to 5" />
+	</div>
 </section>
 
 <section>
@@ -16,6 +20,13 @@
 		Get an overview of all your moods in a color-coded calendar. Easily spot patterns
 		and trends in your emotional well-being.
 	</p>
+
+	<div class="img-container">
+		<img
+			src="/calendar.png"
+			alt="Two months in the calendar filled with colors, representing different moods"
+		/>
+	</div>
 </section>
 
 <section>
@@ -47,5 +58,17 @@
 <style>
 	h2 {
 		margin-block: 1.5rem -0.5rem;
+	}
+
+	.img-container {
+		display: flex;
+		justify-content: center;
+		margin-block: 1.5rem 2rem;
+
+		img {
+			width: min(95%, 28rem);
+			border-radius: 0.5rem;
+			box-shadow: 0.1rem 0.1rem 0.5rem #0002;
+		}
 	}
 </style>

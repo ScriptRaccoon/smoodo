@@ -64,6 +64,11 @@ textarea {
 	resize: vertical;
 }
 
+img {
+	display: block;
+	max-width: 100%;
+}
+
 /* MOOD COLORS */
 
 .mood[data-value='1'] {
