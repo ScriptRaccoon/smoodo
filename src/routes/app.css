@@ -1,11 +1,11 @@
 /* COLORS */
 
 :root {
-	--mood-1-color: hsl(246, 91%, 8%);
-	--mood-2-color: hsl(248, 59%, 22%);
-	--mood-3-color: hsl(176, 52%, 29%);
-	--mood-4-color: rgb(46, 158, 74);
-	--mood-5-color: rgb(141, 232, 50);
+	--mood-1-color: hsl(0, 80%, 50%);
+	--mood-2-color: hsl(30, 80%, 50%);
+	--mood-3-color: hsl(55, 80%, 50%);
+	--mood-4-color: hsl(85, 80%, 50%);
+	--mood-5-color: hsl(120, 80%, 50%);
 	--bg-gradient: linear-gradient(hsl(197, 71%, 85%), hsl(197, 71%, 95%));
 	--outline-color: #555;
 	--secondary-bg-color: #fff;
