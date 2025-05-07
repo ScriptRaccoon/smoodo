@@ -22,12 +22,12 @@ export const load: PageServerLoad = async (event) => {
 	const res = await event.fetch(`/api/mood/${date}`)
 	if (!res.ok) error(500, 'API error.')
 
-	const { mood } = await res.json()
+	const { mood } = (await res.json()) as { mood: Mood | null }
 
 	const next_date = add_days(date, 1)
 	const prev_date = add_days(date, -1)
 
-	return { mood: mood as Mood | null, date_display, date, next_date, prev_date }
+	return { mood, date_display, date, next_date, prev_date }
 }
 
 export const actions: Actions = {
@@ -39,8 +39,18 @@ export const actions: Actions = {
 		const form_data = await event.request.formData()
 
 		const mood_value = parseInt(form_data.get('mood') as string)
-
 		const comment = form_data.get('comment') as string
+
+		const is_valid_mood = mood_value >= 1 && mood_value <= 5
+
+		if (!is_valid_mood) {
+			return fail(400, {
+				success: false,
+				error: 'Mood value must be between 1 and 5.',
+				mood_value,
+				comment: null
+			})
+		}
 
 		if (comment.length > comment_max_length) {
 			return fail(400, {
@@ -52,13 +62,16 @@ export const actions: Actions = {
 		}
 
 		const mood_query = `
-        INSERT INTO moods (user_id, value, date, comment)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO
+			moods (user_id, value, date, comment)
+        VALUES
+			(?, ?, ?, ?)
         ON CONFLICT (user_id, date) DO UPDATE SET
-        value = excluded.value,
-        comment = excluded.comment`
-
+        	value = excluded.value,
+        	comment = excluded.comment
+		`
 		const args = [user.id, mood_value, date, comment || null]
+
 		const { err } = await query(mood_query, args)
 
 		if (err) {
@@ -79,10 +92,10 @@ export const actions: Actions = {
 
 		const date = event.params.date
 
-		const mood_query = `DELETE FROM moods WHERE user_id = ? AND date = ?`
-
+		const delete_query = 'DELETE FROM moods WHERE user_id = ? AND date = ?'
 		const args = [user.id, date]
-		const { err } = await query(mood_query, args)
+
+		const { err } = await query(delete_query, args)
 
 		if (err) {
 			return fail(500, { success: false, error: 'Database error.' })

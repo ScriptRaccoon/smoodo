@@ -13,7 +13,7 @@ export const load: PageServerLoad = async (event) => {
 	const user = event.locals.user
 	if (!user) error(401, 'Unauthorized')
 
-	const user_query = `SELECT username FROM users WHERE id = ?`
+	const user_query = 'SELECT username FROM users WHERE id = ?'
 	const args = [user.id]
 
 	const { rows, err } = await query<{ username: string }>(user_query, args)
@@ -55,7 +55,7 @@ export const actions: Actions = {
 			})
 		}
 
-		const update_query = `UPDATE users SET username = ? WHERE id = ?`
+		const update_query = 'UPDATE users SET username = ? WHERE id = ?'
 		const args = [username, user.id]
 
 		const { err } = await query(update_query, args)
@@ -120,7 +120,7 @@ export const actions: Actions = {
 
 		const password_hash = await bcrypt.hash(password, 10)
 
-		const password_query = `UPDATE users SET password_hash = ? WHERE id = ?`
+		const password_query = 'UPDATE users SET password_hash = ? WHERE id = ?'
 		const args = [password_hash, user.id]
 
 		const { err } = await query(password_query, args)
@@ -139,7 +139,7 @@ export const actions: Actions = {
 		const user = event.locals.user
 		if (!user) error(401, 'Unauthorized')
 
-		const delete_query = `DELETE FROM users WHERE id = ?`
+		const delete_query = 'DELETE FROM users WHERE id = ?'
 		const args = [user.id]
 
 		const { err } = await query(delete_query, args)
@@ -167,6 +167,7 @@ export const actions: Actions = {
 
 		const is_valid_index =
 			question_index >= 0 && question_index < SECURITY_QUESTIONS.length
+
 		if (!is_valid_index) {
 			return fail(400, {
 				action: 'security_question',
@@ -194,7 +195,6 @@ export const actions: Actions = {
 			question_index = excluded.question_index,
 			answer_hash = excluded.answer_hash
 		`
-
 		const args = [user.id, question_index, answer_hash]
 
 		const { err } = await query(answer_query, args)

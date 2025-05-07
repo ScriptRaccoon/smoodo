@@ -2,7 +2,7 @@
 	const MOOD_LABELS = ['very bad', 'bad', 'neutral', 'good', 'very good']
 </script>
 
-<section class="secondary">
+<section>
 	<h2>Legend</h2>
 	<ol class="no-bullets">
 		{#each { length: 5 } as _, i}
@@ -31,6 +31,7 @@
 	}
 
 	section {
+		color: var(--secondary-font-color);
 		margin-top: 2rem;
 		font-size: 0.875rem;
 	}

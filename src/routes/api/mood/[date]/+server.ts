@@ -6,6 +6,7 @@ import type { Mood } from '$lib/server/types'
 export const GET: RequestHandler = async (event) => {
 	const user = event.locals.user
 	if (!user) error(401, 'Unauthorized')
+
 	const date = event.params.date
 
 	const mood_query = `
@@ -16,7 +17,6 @@ export const GET: RequestHandler = async (event) => {
     WHERE
 		user_id = ? AND date = ?
     `
-
 	const args = [user.id, date]
 
 	const { rows, err } = await query<Mood>(mood_query, args)
@@ -25,9 +25,5 @@ export const GET: RequestHandler = async (event) => {
 		return error(500, 'Database error.')
 	}
 
-	if (!rows.length) {
-		return json({ mood: null })
-	}
-
-	return json({ mood: rows[0] })
+	return json({ mood: rows[0] ?? null })
 }

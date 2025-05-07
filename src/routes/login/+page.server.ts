@@ -11,7 +11,7 @@ export const actions: Actions = {
 		const username = form_data.get('username') as string
 		const password = form_data.get('password') as string
 
-		const user_query = `SELECT id, password_hash FROM users WHERE username = ?`
+		const user_query = 'SELECT id, password_hash FROM users WHERE username = ?'
 
 		const { rows, err } = await query<{ id: Number; password_hash: string }>(
 			user_query,

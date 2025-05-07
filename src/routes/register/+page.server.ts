@@ -53,7 +53,7 @@ export const actions: Actions = {
 
 		const password_hash = await bcrypt.hash(password, 10)
 
-		const insert_query = `INSERT INTO users (username, password_hash) VALUES (?,?)`
+		const insert_query = 'INSERT INTO users (username, password_hash) VALUES (?,?)'
 
 		const { err } = await query(insert_query, [username, password_hash])
 

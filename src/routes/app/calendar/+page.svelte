@@ -25,9 +25,9 @@
 						class="date mood"
 						class:first={i === 0}
 						href={`/app/${date}`}
-						data-value={data.moods[date]?.value ?? 0}
+						data-value={data.moods_dictionary[date]?.value ?? 0}
+						aria-label={date}
 					>
-						<span class="sr-only">{date}</span>
 					</a>
 				{/each}
 			</div>

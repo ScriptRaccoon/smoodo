@@ -11,7 +11,7 @@ export function group_by<T extends Record<string, any>, K extends keyof T>(
 /**
  * Transforms the day index so that Monday is 0 and Sunday is 6.
  */
-function transform_day(day: number) {
+function transform_day(day: number): number {
 	return day > 0 ? day - 1 : 6
 }
 
@@ -20,7 +20,7 @@ function transform_day(day: number) {
  */
 const MONTH_NAMES = Array.from({ length: 12 }, (_, i) =>
 	new Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(0, i))
-)
+) as readonly string[]
 
 /**
  * Returns information about a month given its string representation in YYYY-MM format.

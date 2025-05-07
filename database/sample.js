@@ -10,7 +10,7 @@ const end = new Date()
  * Requires that a user with id = 1 has been created before.
  */
 function generate_sample_data() {
-	let sql = `INSERT INTO moods (user_id, value, date)\nVALUES\n`
+	let sql = 'INSERT INTO moods (user_id, value, date)\nVALUES\n'
 	const user_id = 1
 	const moods = []
 

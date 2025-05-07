@@ -57,7 +57,7 @@
 <form action="?/security_question" method="POST" use:enhance>
 	<div class="input-group">
 		<label for="question">Security Question (optional, for password reset)</label>
-		<select name="question" id="question">
+		<select name="question" id="question" required>
 			{#each data.SECURITY_QUESTIONS as question, index}
 				<option value={index}>
 					{question}
@@ -68,7 +68,7 @@
 
 	<div class="input-group">
 		<label for="answer">Answer</label>
-		<input type="text" id="answer" name="answer" />
+		<input type="text" id="answer" name="answer" required />
 	</div>
 
 	<button class="button">Submit</button>

@@ -3,7 +3,7 @@
 </script>
 
 <nav>
-	<ul>
+	<ul class="no-bullets">
 		{#if page.data.user}
 			<li>
 				<a href="/app/today">Today</a>
@@ -39,8 +39,6 @@
 	}
 
 	ul {
-		padding: 0;
-		list-style-type: none;
 		gap: 0.5rem 1rem;
 		display: flex;
 		justify-content: center;

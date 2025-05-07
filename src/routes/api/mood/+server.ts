@@ -16,7 +16,6 @@ export const GET: RequestHandler = async (event) => {
         user_id = ?
     ORDER BY date ASC
     `
-
 	const args = [user.id]
 
 	const { rows, err } = await query<Mood>(mood_query, args)

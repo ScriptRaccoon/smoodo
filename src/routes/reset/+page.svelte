@@ -21,6 +21,7 @@
 			value={form?.username ?? ''}
 		/>
 	</div>
+
 	<div class="input-group">
 		<label for="question">Security Question</label>
 		<select name="question" id="question">
@@ -55,5 +56,5 @@
 {/if}
 
 {#if form?.success}
-	<p>Password has been reset successfully.</p>
+	<p>Password has been reset successfully. You can now <a href="/login">login</a>.</p>
 {/if}
