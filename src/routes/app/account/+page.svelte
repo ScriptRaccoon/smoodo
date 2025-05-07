@@ -7,17 +7,52 @@
 
 <header class="header">
 	<h1>Account</h1>
+	<div>
+		<a href="/api/export">Export Data</a> &nbsp;
+		<a href="/app/logout" data-sveltekit-preload-data="off">Logout</a>
+	</div>
 </header>
 
 <p>Hey, {data.username}!</p>
 
-<form action="/app/logout" method="GET">
-	<button class="button">Logout</button>
+<form action="?/rename" method="POST" use:enhance>
+	<div class="input-group">
+		<label for="username">Username</label>
+		<input type="text" name="username" id="username" value={data.username} required />
+	</div>
+
+	<button class="button">Change username</button>
 </form>
 
-<form action="/api/export" method="GET">
-	<button class="button">Download your Data</button>
+{#if form?.action === 'rename' && form?.error}
+	<p class="error">{form.error}</p>
+{/if}
+
+{#if form?.action === 'rename' && form?.success}
+	<p>Username has been updated.</p>
+{/if}
+
+<form action="?/password" method="POST" use:enhance>
+	<div class="input-group">
+		<label for="password">Password</label>
+		<input type="password" id="password" name="password" required />
+	</div>
+
+	<div class="input-group">
+		<label for="repeat_password">Repeat Password</label>
+		<input type="password" id="repeat_password" name="repeat_password" required />
+	</div>
+
+	<button class="button">Change password</button>
 </form>
+
+{#if form?.action === 'password' && form?.error}
+	<p class="error">{form.error}</p>
+{/if}
+
+{#if form?.action === 'password' && form?.success}
+	<p>Password has been updated.</p>
+{/if}
 
 <form class="form_delete" action="?/delete_account" method="POST" use:enhance>
 	{#if confirm_deletion}
@@ -35,16 +70,22 @@
 		</menu>
 	{:else}
 		<button class="button" type="button" onclick={() => (confirm_deletion = true)}>
-			Delete Acccount
+			Delete Account
 		</button>
 	{/if}
 </form>
 
-{#if form?.error}
+{#if form?.action === 'delete' && form?.error}
 	<p class="error">{form.error}</p>
 {/if}
 
 <style>
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: start;
+	}
+
 	menu {
 		display: flex;
 		gap: 0.5rem;
