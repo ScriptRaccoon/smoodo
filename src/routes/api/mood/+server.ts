@@ -1,7 +1,7 @@
 import { error, json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { query } from '$lib/server/db'
-import type { MoodBox } from '$lib/server/types'
+import type { Mood } from '$lib/server/types'
 
 export const GET: RequestHandler = async (event) => {
 	const user = event.locals.user
@@ -9,7 +9,7 @@ export const GET: RequestHandler = async (event) => {
 
 	const mood_query = `
     SELECT
-        id, value, date
+        id, value, date, comment
     FROM
         moods
     WHERE
@@ -19,7 +19,7 @@ export const GET: RequestHandler = async (event) => {
 
 	const args = [user.id]
 
-	const { rows, err } = await query<MoodBox>(mood_query, args)
+	const { rows, err } = await query<Mood>(mood_query, args)
 
 	if (err) {
 		return error(500, 'Database error.')
