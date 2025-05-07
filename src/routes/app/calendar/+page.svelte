@@ -28,6 +28,7 @@
 						data-value={data.moods_dictionary[date]?.value ?? 0}
 						aria-label={date}
 					>
+						<span class="day">{i + 1}</span>
 					</a>
 				{/each}
 			</div>
@@ -65,9 +66,25 @@
 		text-align: center;
 		text-decoration: none;
 		background-color: var(--color, var(--secondary-bg-color));
+		position: relative;
 	}
 
 	.date.first {
 		grid-column: calc(1 + var(--first_day));
+	}
+
+	.day {
+		position: absolute;
+		bottom: 0.2rem;
+		right: 0.2rem;
+		font-size: 0.75rem;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--secondary-bg-color);
+		border-radius: 50%;
+		width: 1.125rem;
+		height: 1.125rem;
+		color: var(--secondary-font-color);
 	}
 </style>
