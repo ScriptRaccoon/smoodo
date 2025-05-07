@@ -15,7 +15,11 @@
 	<button class="button">Logout</button>
 </form>
 
-<form action="?/delete_account" method="POST" use:enhance>
+<form action="/api/export" method="GET">
+	<button class="button">Download your Data</button>
+</form>
+
+<form class="form_delete" action="?/delete_account" method="POST" use:enhance>
 	{#if confirm_deletion}
 		<p>
 			Are you sure you want to delete your account? This action cannot be undone.
@@ -49,5 +53,9 @@
 
 	form {
 		margin-top: 1rem;
+	}
+
+	.form_delete {
+		margin-top: 3rem;
 	}
 </style>
