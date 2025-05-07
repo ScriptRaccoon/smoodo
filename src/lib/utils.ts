@@ -38,19 +38,12 @@ export function get_month_info(month_str: string) {
 }
 
 /**
- * Returns a date in YYYY-MM-DD format.
- */
-export function format_date(date: string | Date): string {
-	return new Date(date).toISOString().split('T')[0]
-}
-
-/**
  * Adds a number of days to a given date and returns it in YYYY-MM-DD format.
  */
 export function add_days(date: string | Date, amount: number): string {
 	const date_obj = new Date(date)
 	date_obj.setDate(date_obj.getDate() + amount)
-	return format_date(date_obj)
+	return date_obj.toLocaleDateString('en-CA')
 }
 
 /**
