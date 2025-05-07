@@ -35,6 +35,7 @@
 		padding-inline: 0.75rem;
 		position: sticky;
 		top: 0;
+		z-index: 1;
 		background-image: var(--bg-gradient);
 		background-size: 100vw 100vh;
 	}
