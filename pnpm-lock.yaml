@@ -11,6 +11,9 @@ importers:
       '@libsql/client':
         specifier: ^0.15.4
         version: 0.15.4
+      '@lucide/svelte':
+        specifier: ^0.508.0
+        version: 0.508.0(svelte@5.28.2)
       bcryptjs:
         specifier: ^3.0.2
         version: 3.0.2
@@ -279,6 +282,11 @@ packages:
     resolution: {integrity: sha512-8hKczus0swLEvXu8N0znWdyFo5QzFnE9mnz7G/sb+eVn+zpPlT6ZdFHZdhQzev9C0to7kvYDj03qESTUIwDiqg==}
     cpu: [x64]
     os: [win32]
+
+  '@lucide/svelte@0.508.0':
+    resolution: {integrity: sha512-yJZz7QMP4VvtyHlnjSIvM+DGyeCoZJlWMJJDm9K7op4Vf41Q5kguq25uXH8t9I5y0xT2aWpRlxbpvK9L0K1uRA==}
+    peerDependencies:
+      svelte: ^5
 
   '@neon-rs/load@0.0.4':
     resolution: {integrity: sha512-kTPhdZyTQxB+2wpiRcFWrDcejc4JI6tkPuS7UZCG4l6Zvc5kU/gGQ/ozvHTh1XR5tS+UlfAfGuPajjzQjCiHCw==}
@@ -919,6 +927,10 @@ snapshots:
 
   '@libsql/win32-x64-msvc@0.5.8':
     optional: true
+
+  '@lucide/svelte@0.508.0(svelte@5.28.2)':
+    dependencies:
+      svelte: 5.28.2
 
   '@neon-rs/load@0.0.4': {}
 

@@ -1,6 +1,6 @@
 import { comment_max_length, date_regex } from '$lib/server/config'
 import { query } from '$lib/server/db'
-import { format } from 'date-fns'
+import { addDays, format } from 'date-fns'
 import type { Actions, PageServerLoad } from './$types'
 import { error, fail } from '@sveltejs/kit'
 import type { Mood } from '$lib/server/types'
@@ -19,7 +19,10 @@ export const load: PageServerLoad = async (event) => {
 
 	const { mood } = await res.json()
 
-	return { mood: mood as Mood | null, date, date_display }
+	const next_date = format(addDays(date, 1), 'yyyy-MM-dd')
+	const prev_date = format(addDays(date, -1), 'yyyy-MM-dd')
+
+	return { mood: mood as Mood | null, date_display, date, next_date, prev_date }
 }
 
 export const actions: Actions = {

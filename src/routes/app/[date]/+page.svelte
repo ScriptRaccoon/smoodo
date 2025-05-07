@@ -1,12 +1,19 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
 	import Legend from '$lib/components/Legend.svelte'
+	import { ChevronLeft, ChevronRight } from '@lucide/svelte'
 
 	let { form, data } = $props()
 </script>
 
 <header class="header">
+	<a href="/app/{data.prev_date}" aria-label="previous day">
+		<ChevronLeft strokeWidth={3} />
+	</a>
 	<h1>{data.date_display}</h1>
+	<a href="/app/{data.next_date}" aria-label="next day">
+		<ChevronRight strokeWidth={3} />
+	</a>
 </header>
 
 {#if !data.mood}
@@ -62,6 +69,12 @@
 <Legend />
 
 <style>
+	.header {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: end;
+	}
+
 	h1 {
 		text-align: center;
 	}
