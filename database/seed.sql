@@ -19,9 +19,7 @@ CREATE TABLE moods (
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE INDEX IF NOT EXISTS idx_mood_user ON moods (user_id);
-
-CREATE INDEX IF NOT EXISTS idx_mood_date ON moods (date);
+CREATE INDEX IF NOT EXISTS idx_mood_user_date ON moods (user_id, date);
 
 CREATE TABLE IF NOT EXISTS security_answers (
     id INTEGER PRIMARY KEY,
