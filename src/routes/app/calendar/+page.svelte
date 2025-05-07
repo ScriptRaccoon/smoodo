@@ -61,7 +61,7 @@
 	}
 
 	.date {
-		aspect-ratio: 5 / 3;
+		aspect-ratio: 4 / 3;
 		border-radius: 0.25rem;
 		text-align: center;
 		text-decoration: none;
