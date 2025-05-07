@@ -1,5 +1,11 @@
 <script lang="ts">
+	import { afterNavigate } from '$app/navigation'
+
 	let { data } = $props()
+
+	afterNavigate(() => {
+		window.scrollTo(0, document.body.scrollHeight)
+	})
 </script>
 
 <h1>Calendar</h1>
