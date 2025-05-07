@@ -1,9 +1,9 @@
 import { comment_max_length, date_regex } from '$lib/server/config'
 import { query } from '$lib/server/db'
-import { addDays, format } from 'date-fns'
 import type { Actions, PageServerLoad } from './$types'
 import { error, fail } from '@sveltejs/kit'
 import type { Mood } from '$lib/server/types'
+import { add_days } from '$lib/utils'
 
 export const load: PageServerLoad = async (event) => {
 	const date = event.params.date
@@ -12,15 +12,20 @@ export const load: PageServerLoad = async (event) => {
 		return error(400, 'Invalid date format.')
 	}
 
-	const date_display = format(new Date(date), 'EEEE dd MMMM yyyy')
+	const date_display = new Intl.DateTimeFormat('en-GB', {
+		weekday: 'long',
+		day: '2-digit',
+		month: 'long',
+		year: 'numeric'
+	}).format(new Date(date))
 
 	const res = await event.fetch(`/api/mood/${date}`)
 	if (!res.ok) error(500, 'API error.')
 
 	const { mood } = await res.json()
 
-	const next_date = format(addDays(date, 1), 'yyyy-MM-dd')
-	const prev_date = format(addDays(date, -1), 'yyyy-MM-dd')
+	const next_date = add_days(date, 1)
+	const prev_date = add_days(date, -1)
 
 	return { mood: mood as Mood | null, date_display, date, next_date, prev_date }
 }

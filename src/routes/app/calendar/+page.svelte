@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation'
 	import Legend from '$lib/components/Legend.svelte'
+	import { get_date_string } from '$lib/utils.js'
 
 	let { data } = $props()
 
@@ -19,7 +20,7 @@
 			<h2>{month.label}</h2>
 			<div class="grid" style:--first_day={month.first_day}>
 				{#each { length: month.day_count } as _, i}
-					{@const date = `${month.year}-${month.number.toString().padStart(2, '0')}-${(i + 1).toString().padStart(2, '0')}`}
+					{@const date = get_date_string(month.year, month.number, i + 1)}
 					<a
 						class="date mood"
 						class:first={i === 0}

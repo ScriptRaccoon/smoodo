@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import { get_month_info, group_by } from '$lib/server/utils'
+import { get_month_info, group_by } from '$lib/utils'
 import type { Mood } from '$lib/server/types'
 
 export const load: PageServerLoad = async (event) => {
