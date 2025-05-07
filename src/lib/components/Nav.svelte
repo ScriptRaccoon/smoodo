@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/state'
+	const today = new Date().toLocaleDateString('en-CA')
 </script>
 
 <nav>
 	<ul class="no-bullets">
 		{#if page.data.user}
 			<li>
-				<a href="/app/today">Today</a>
+				<a href="/app/{today}">Today</a>
 			</li>
 			<li>
 				<a href="/app/calendar">Calendar</a>
