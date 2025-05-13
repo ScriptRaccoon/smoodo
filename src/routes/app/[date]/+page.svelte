@@ -72,17 +72,32 @@
 	.header {
 		display: grid;
 		grid-template-columns: auto 1fr auto;
-		align-items: end;
+		align-items: center;
+		gap: 0.25rem;
+
+		a {
+			line-height: 0;
+		}
 	}
 
 	h1 {
 		text-align: center;
+		text-wrap: balance;
+		font-size: 2rem;
+
+		@media (max-width: 460px) {
+			font-size: 1.5rem;
+		}
 	}
 
 	.question {
 		font-weight: bold;
 		font-size: 1.25rem;
 		text-align: center;
+
+		@media (max-width: 460px) {
+			font-size: 1.125rem;
+		}
 	}
 
 	.moods {
