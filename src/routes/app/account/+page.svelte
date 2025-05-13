@@ -84,18 +84,18 @@
 
 <form class="form_delete" action="?/delete_account" method="POST" use:enhance>
 	{#if confirm_deletion}
-		<p>
-			Are you sure you want to delete your account? This action cannot be undone.
-			All data will be lost.
-		</p>
 		<menu>
-			<button class="button">Yes. I want to delete my account</button>
 			<button
 				class="button"
 				type="button"
 				onclick={() => (confirm_deletion = false)}>Cancel</button
 			>
+			<button class="button">Yes. I want to delete my account</button>
 		</menu>
+		<p>
+			Are you sure you want to delete your account? This action cannot be undone.
+			All data will be lost.
+		</p>
 	{:else}
 		<button class="button" type="button" onclick={() => (confirm_deletion = true)}>
 			Delete Account
