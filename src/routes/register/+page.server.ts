@@ -3,6 +3,10 @@ import type { Actions } from './$types'
 import { query } from '$lib/server/db'
 import { password_min_length, password_regex, username_regex } from '$lib/server/config'
 import { fail } from '@sveltejs/kit'
+import { RateLimiter } from '$lib/server/ratelimit'
+
+// allow 10 register attempts per minute
+const register_rate_limiter = new RateLimiter(10, 60 * 1000)
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -10,6 +14,15 @@ export const actions: Actions = {
 		const username = form_data.get('username') as string
 		const password = form_data.get('password') as string
 		const password_repeat = form_data.get('repeat_password') as string
+
+		const ip = event.getClientAddress()
+		if (register_rate_limiter.is_rate_limited(ip)) {
+			return fail(429, {
+				success: false,
+				error: 'Too many registration attempts. Please try again later.',
+				username
+			})
+		}
 
 		if (!username) {
 			return fail(400, { success: false, error: 'Username is required.', username })
@@ -67,6 +80,8 @@ export const actions: Actions = {
 					})
 				: fail(500, { success: false, error: 'Database error.', username })
 		}
+
+		register_rate_limiter.reset(ip)
 
 		return { success: true, username }
 	}
