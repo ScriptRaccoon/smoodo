@@ -63,7 +63,6 @@
 	.date {
 		aspect-ratio: 4 / 3;
 		border-radius: 0.25rem;
-		text-align: center;
 		text-decoration: none;
 		background-color: var(--color, var(--secondary-bg-color));
 		position: relative;

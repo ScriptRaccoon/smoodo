@@ -70,8 +70,8 @@
 
 <style>
 	.header {
-		display: grid;
-		grid-template-columns: auto 1fr auto;
+		display: flex;
+		justify-content: space-between;
 		align-items: center;
 		gap: 0.25rem;
 
